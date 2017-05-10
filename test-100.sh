@@ -27,9 +27,9 @@ DN=/dev/null
 
 ./detecter					&& fail "pas d'arg"
 
-./detecter -i1 -l 1 cat $DN			|| fail "syntaxe -i1 -l 1"
+./detecter -i 1 -l 1 cat $DN			|| fail "syntaxe -i1 -l 1"
 
-./detecter -l1 -i 1 cat $DN			|| fail "syntaxe -l 1 -i1"
+./detecter -l 1 -i 1 cat $DN			|| fail "syntaxe -l 1 -i1"
 
 ./detecter -i 0 cat $DN				&& fail "intervalle nul"
 
@@ -37,10 +37,10 @@ DN=/dev/null
 
 ./detecter -l -1 cat $DN			&& fail "limite négative"
 
-./detecter -i1 -l1				&& fail "pas de cmd"
+./detecter -i 1 -l 1				&& fail "pas de cmd"
 
-./detecter -c -i1 -l1 cat $DN > $DN		|| fail "syntaxe -c"
+./detecter -c -i 1 -l 1 cat $DN > $DN		|| fail "syntaxe -c"
 
-./detecter -t %S -c -i1 -l1 cat $DN > $DN	|| fail "syntaxe -t %S"
+./detecter -t %S -c -i 1 -l 1 cat $DN > $DN	|| fail "syntaxe -t %S"
 
 exit 0

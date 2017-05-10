@@ -22,7 +22,7 @@ fail ()
     echo "==> Exit"
     exit 1
 }
-
+  
 # test de changement
 
 cat > script.tmp <<'EOF'
@@ -31,7 +31,7 @@ cat > script.tmp <<'EOF'
     F=f1.tmp
     if [ -f $F ]
     then echo "present" ; rm $F ; r=1
-    else echo "absent" ; touch $F ; r=0
+    else echo "absentx" ; touch $F ; r=0
     fi
     exit $r
 EOF
@@ -40,27 +40,11 @@ chmod +x script.tmp
 N=5
 for i in $(seq 1 $N)
 do
-    echo absent
+    echo absentx
     echo present
 done > f3.tmp
 
 rm -f f1.tmp
 ./detecter -i 1 -l $((N*2)) ./script.tmp > f2.tmp \
 	&& cmp -s f2.tmp f3.tmp 		|| fail "present-absent"
-
-
-# test de changement avec code retour
-
-for i in $(seq 1 $N)
-do
-    echo absent
-    echo exit 0
-    echo present
-    echo exit 1
-done > f3.tmp
-
-./detecter -c -i 1 -l $((N*2)) ./script.tmp > f2.tmp \
-	&& cmp -s f2.tmp f3.tmp 		|| fail "present-absent -c"
-
-
 exit 0
